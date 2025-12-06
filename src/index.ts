@@ -3,7 +3,7 @@ import express from "express";
 import TelegramBot from "node-telegram-bot-api";
 import fs from "fs";
 import path from "path";
-import { formatBytes, progressBar, eta } from "./util";
+import { formatBytes, progressBar, eta } from "./util.js";
 
 
 import { getAuthURL, handleOAuthCallback, getDriveClient } from "./googleAuth.js";
@@ -69,7 +69,7 @@ bot.on("message", async (msg) => {
 
   const statusMsg = await bot.sendMessage(chatId, "⏳ Fetching metadata...");
 
-  const downloadPath = "./downloads";
+  const downloadPath = "/tmp/torrent";
   const torrent = await downloadTorrent(text, downloadPath);
 
   activeDownloads.set(chatId, torrent);
@@ -150,5 +150,5 @@ bot.on("message", async (msg) => {
 
 // Start server
 app.listen(3000, () => {
-  console.log("OAuth server running at http://localhost:3000");
+  console.log("Server Started");
 });
